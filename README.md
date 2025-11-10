@@ -25,20 +25,22 @@ ____________________________________________________
 
 Penjelasan Fungsi xTaskCreatePinnedToCore()
 Fungsi ini adalah bagian penting dari FreeRTOS yang digunakan untuk membuat task baru dan menentukan core mana yang akan menjalankannya.
-xTaskCreatePinnedToCore(
-  function_name,    // Nama fungsi task
-  task_name,        // Nama identifikasi task
-  stack_size,       // Ukuran stack task (byte)
-  task_parameter,   // Parameter tambahan (biasanya NULL)
-  priority,         // Prioritas task
-  task_handle,      // Pointer ke handle task (bisa NULL)
-  core_ID           // Nomor core (0 atau 1)
-);
+xTaskCreatePinnedToCore(function_name,task_name,stack_size,task_parameter,priority,task_handle,core_ID);
+
 
 Contoh : xTaskCreatePinnedToCore(taskLED, "taskLED_Core0", 1000, NULL, 1, NULL, 0);
+
 
 Perbedaan Core 0 dan Core 1
 | Core       | Fungsi Utama                            | Keterangan                                                  |
 | ---------- | --------------------------------------- | ----------------------------------------------------------- |
 | **Core 0** | Sistem, Wi-Fi, Bluetooth, task tambahan | Dapat digunakan untuk tugas rutin atau proses berat         |
-| **Core 1** | Program utama (Arduino loop, setup)     | Biasanya digunakan untuk task utama seperti UI, sensor, dsb |
+| **Core 1** | Program utama (Arduino loop, setup)     | Biasanya digunakan untuk task utama seperti UI, sensor      |
+
+Kesimpulan
+
+Dengan FreeRTOS, ESP32-S3 dapat menjalankan beberapa proses (task) secara bersamaan di dua core.
+Fungsi xTaskCreatePinnedToCore() memungkinkan pembagian kerja antar-core secara manual.
+Pembagian tugas yang baik (misalnya LED di Core 0 dan sensor di Core 1) dapat meningkatkan performa sistem dan membuat respon lebih cepat.
+
+
