@@ -1,1 +1,5 @@
-[![Video Encoder Core 0 & Core 1](https://drive.google.com/file/d/1yETbOJo9AvGH5QHwXoDN4tzcTr471b_B/view?usp=drive_link)]
+Video Demo
+
+| Komponen  | Link Video                                            |
+| --------- | ----------------------------------------------------- |
+| Emcoder | [🎬 Lihat di Google Drive](https://drive.google.com/file/d/19tPAKtA8GVwzpFOq4KXbVQYJiTR8SxkE/view?usp=drive_link) |
