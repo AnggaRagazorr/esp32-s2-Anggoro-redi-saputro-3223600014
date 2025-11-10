@@ -1,1 +1,22 @@
+#define POT_PIN 36
+
+void taskPot(void *pvParameters) {
+  while (1) {
+    int val = analogRead(POT_PIN);
+    Serial.println(val);
+    delay(300);
+  }
+}
+
+void setup() {
+  Serial.begin(115200);
+
+  // Core 0
+  xTaskCreatePinnedToCore(taskPot, "taskPot_Core0", 2000, NULL, 1, NULL, 0);
+
+  // Core 1
+  // xTaskCreatePinnedToCore(taskPot, "taskPot_Core1", 2000, NULL, 1, NULL, 1);
+}
+
+void loop() {}
 
