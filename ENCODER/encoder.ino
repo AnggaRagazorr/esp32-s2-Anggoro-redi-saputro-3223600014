@@ -3,18 +3,21 @@
 #define SW 12
 
 int counter = 0;
-int lastState;
+int lastCLK = HIGH;
 
 void taskEncoder(void *pvParameters) {
   while (1) {
-    int current = digitalRead(CLK);
-    if (current != lastState) {
-      if (digitalRead(DT) != current) counter++;
+    int newCLK = digitalRead(CLK);
+    if (newCLK != lastCLK) {
+      if (digitalRead(DT) != newCLK) counter++;
       else counter--;
-      Serial.println(counter);
+      Serial.print("Encoder counter: ");
+      Serial.print(counter);
+      Serial.print(" | Running on Core: ");
+      Serial.println(xPortGetCoreID());
     }
-    lastState = current;
-    delay(5);
+    lastCLK = newCLK;
+    delay(10);
   }
 }
 
@@ -23,7 +26,6 @@ void setup() {
   pinMode(CLK, INPUT);
   pinMode(DT, INPUT);
   pinMode(SW, INPUT_PULLUP);
-  lastState = digitalRead(CLK);
 
   // Core 0
   xTaskCreatePinnedToCore(taskEncoder, "taskEncoder_Core0", 2000, NULL, 1, NULL, 0);
@@ -33,4 +35,3 @@ void setup() {
 }
 
 void loop() {}
-
